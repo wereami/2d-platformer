@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgfmyk7bm1n5e"]
+
+[ext_resource type="Texture2D" uid="uid://dpnrut3tj68ok" path="res://assets/Tilesets/Assets.png" id="1_5dmrt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ry7h"]
+atlas = ExtResource("1_5dmrt")
+region = Rect2(352, 256, 32, 32)
+
+[node name="Spike" type="Area2D" groups=["Spikes"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = SubResource("AtlasTexture_0ry7h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(16.2, 22)
+scale = Vector2(1.00781, 1)
+polygon = PackedVector2Array(-16, 10, 0, 0, 15.6775, 10)

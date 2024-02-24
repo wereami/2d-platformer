@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bixoabsat4ak8"]
+
+[ext_resource type="Script" path="res://src/level_trigger.gd" id="1_feda3"]
+[ext_resource type="SpriteFrames" uid="uid://c8grnt8slysgg" path="res://resources/level_trigger.tres" id="1_hiwr8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdl4d"]
+size = Vector2(32, 32)
+
+[node name="LevelTrigger" type="Area2D"]
+script = ExtResource("1_feda3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_hiwr8")
+offset = Vector2(8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_jdl4d")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://xx5xtyhxr020"]
+
+[ext_resource type="Texture2D" uid="uid://bdyf53rpdb2av" path="res://assets/coins-chests-etc-2-0-noborders.png" id="1_nanys"]
+
+[resource]
+atlas = ExtResource("1_nanys")
+region = Rect2(336, 192, 16, 16)
+margin = Rect2(2, 0, 0, 0)

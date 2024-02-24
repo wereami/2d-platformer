@@ -1,0 +1,166 @@
+[gd_scene load_steps=15 format=3 uid="uid://c7xbsrf0at16v"]
+
+[ext_resource type="Script" path="res://src/player.gd" id="1_ek03i"]
+[ext_resource type="Texture2D" uid="uid://dir7rej7r0owt" path="res://assets/Characters/Basic Charakter Spritesheet.png" id="2_f3krt"]
+[ext_resource type="Script" path="res://src/player_hitbox.gd" id="3_kemnr"]
+[ext_resource type="Texture2D" uid="uid://xx5xtyhxr020" path="res://resources/heart_ui.tres" id="3_wtccd"]
+[ext_resource type="Texture2D" uid="uid://bdyf53rpdb2av" path="res://assets/coins-chests-etc-2-0-noborders.png" id="5_6opqb"]
+[ext_resource type="Texture2D" uid="uid://ed07ktajdmcj" path="res://assets/Tilesets/Background_2.png" id="6_nx32u"]
+[ext_resource type="Texture2D" uid="uid://cfp7xb5tknd64" path="res://assets/Tilesets/Background_1.png" id="7_nb0au"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vmqv7"]
+
+[sub_resource type="Animation" id="Animation_df52p"]
+resource_name = "Idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_3hken"]
+resource_name = "Jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [12]
+}
+
+[sub_resource type="Animation" id="Animation_0s1xm"]
+resource_name = "Move"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_c5q6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e3gbe"]
+_data = {
+"Idle": SubResource("Animation_df52p"),
+"Jump": SubResource("Animation_3hken"),
+"Move": SubResource("Animation_0s1xm"),
+"RESET": SubResource("Animation_c5q6f")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd8u7"]
+atlas = ExtResource("5_6opqb")
+region = Rect2(416, 16, 16, 16)
+margin = Rect2(0, -3, 0, 0)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_ek03i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_f3krt")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 22)
+shape = SubResource("RectangleShape2D_vmqv7")
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_kemnr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(16, 22)
+shape = SubResource("RectangleShape2D_vmqv7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+limit_bottom = 1000
+position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e3gbe")
+}
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="HP" type="HBoxContainer" parent="HUD"]
+offset_right = 56.0
+offset_bottom = 16.0
+scale = Vector2(3, 3)
+
+[node name="Heart1" type="TextureRect" parent="HUD/HP"]
+layout_mode = 2
+texture = ExtResource("3_wtccd")
+
+[node name="Heart2" type="TextureRect" parent="HUD/HP"]
+layout_mode = 2
+texture = ExtResource("3_wtccd")
+
+[node name="Heart3" type="TextureRect" parent="HUD/HP"]
+layout_mode = 2
+texture = ExtResource("3_wtccd")
+
+[node name="Coins" type="HBoxContainer" parent="HUD"]
+offset_top = 56.0
+offset_right = 46.0
+offset_bottom = 88.0
+scale = Vector2(2, 2)
+
+[node name="Coin" type="TextureRect" parent="HUD/Coins"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_vd8u7")
+expand_mode = 2
+
+[node name="Count" type="Label" parent="HUD/Coins"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(620, 340)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_nx32u")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(620, 340)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_nb0au")
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_entered"]

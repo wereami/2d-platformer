@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbwi4xwnj7am6"]
+
+[ext_resource type="Script" path="res://src/menu.gd" id="1_f6o3k"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f6o3k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -100.0
+offset_right = 125.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Play" type="Button" parent="CanvasLayer/Buttons"]
+layout_mode = 2
+text = "Играть"
+
+[node name="Exit" type="Button" parent="CanvasLayer/Buttons"]
+layout_mode = 2
+text = "Выйти"
+
+[connection signal="pressed" from="CanvasLayer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/Exit" to="." method="_on_exit_pressed"]
